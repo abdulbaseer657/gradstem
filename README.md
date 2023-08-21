@@ -121,7 +121,7 @@ pnpm install
 
 ## Author
 
-👤 **Abdul Ahad Siddiqui**
+👤 **Abdul Baseer Mohammed**
 
 - Github: [@abdulbaseer657](https://github.com/abdulbaseer657)
 - LinkedIn: [abdul baseer mohammed](https://www.linkedin.com/in/abdul-baseer-mohammed-59bbbb158/)
