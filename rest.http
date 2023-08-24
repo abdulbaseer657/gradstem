@@ -1,13 +1,31 @@
 GET http://localhost:3000
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTI4NTE1NzUsImV4cCI6MTY5Mjg1MTU5NSwiYXVkIjoiNjRlNmI3ZTNjYTFmNGNiNDFhNDE0YTgzIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.6AnWaJX1vbCQvFVHP_0hMtS5ukczFXWOZSmaFi8CjyM
 ###
 POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "email":"abdulnew@gmail.com",
+    "password":"1234"
+}
 
 ###
 POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+
+{
+    "email":"abdul@gmail.com",
+    "password":"1234"
+}
 
 ###
 POST http://localhost:3000/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTI4NTA0ODUsImV4cCI6MTcyNDQwODA4NSwiYXVkIjoiNjRlNmQ5MzU3MTM5ZTdmMTBmOWJlZTVhIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.nFHaMw6sjxCLzUespfgRSyYah3vhm51K5s9UNcjlNUY"
+}
 
 ###
 DELETE http://localhost:3000/auth/logout
