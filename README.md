@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://gradstem.com" target="_blank"> 
-    <img src="https://github.com/abdulbaseer657/gradstem//blob/main/static/gradstem.png" alt="Gradstem Home">
+    <img src="https://github.com/abdulbaseer657/gradstem/blob/abdul-setup/static/gradpath.png" alt="Gradstem Home">
   </a>
 </p>
 
