@@ -4,7 +4,11 @@ const createError = require("http-errors");
 require("dotenv").config();
 require("./helpers/init_mongodb");
 const AuthRoute = require("./Routes/Auth.route");
+const jobs = require("./Routes/jobs.route");
+const companies = require("./Routes/company.route");
 const app = express();
+const cors = require("cors");
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,6 +20,7 @@ app.get("/", verifyAccessToken, async (req, res, next) => {
 });
 
 app.use("/auth", AuthRoute);
+app.use("/api/v0/", jobs, companies);
 
 app.use(async (req, res, next) => {
   next(createError.NotFound());
