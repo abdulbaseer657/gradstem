@@ -1,12 +1,31 @@
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTI4NTE1NzUsImV4cCI6MTY5Mjg1MTU5NSwiYXVkIjoiNjRlNmI3ZTNjYTFmNGNiNDFhNDE0YTgzIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.6AnWaJX1vbCQvFVHP_0hMtS5ukczFXWOZSmaFi8CjyM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTMwMTgxNTAsImV4cCI6MTY5MzAxODQ1MCwiYXVkIjoiNjRlN2FiNzQ1MzJjYTNiOTJlNjA5NzY2IiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.oTgarqyuqv4Epjt1FL8kMHMglMErOX4Dua8xa889dFc
+
+###
+POST https://jobs.learnerabdul.com/api/v1/ HTTP/1.1
+
+{
+  "companyname":"gradstem" ,
+  "jobtitle":"software dev",
+  "jobid": "1234"
+}
+
 ###
 POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "email":"abdulnew@gmail.com",
-    "password":"1234"
+    "email":"rizwanew@gmail.com",
+    "password":"12345"
+}
+
+###
+POST http://localhost:3000/api/v0/companies
+Content-Type: application/json
+
+{
+    "companyName":"gradstem",
+    "h1b":0
 }
 
 ###
@@ -15,7 +34,7 @@ Content-Type: application/json
 
 
 {
-    "email":"abdul@gmail.com",
+    "email":"mustafa@gmail.com",
     "password":"1234"
 }
 
