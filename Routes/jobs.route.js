@@ -9,7 +9,8 @@ const {
   updateJob,
 } = require("../controllers/jobs.controller");
 
+router.route("/jobs/:_id").get(getJob).patch(updateJob).delete(deleteJob);
+
 router.route("/jobs").get(getAllJobs).post(postJob);
-router.route("/jobs/:id").delete(deleteJob).get(getJob).patch(updateJob);
 
 module.exports = router;
