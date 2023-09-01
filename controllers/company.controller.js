@@ -5,6 +5,7 @@ const { companiesSchema } = require("../helpers/validation_schema");
 
 const postCompany = async (req, res) => {
   //company posting code goes here
+  //code needs to be updated
   try {
     const company = new Company(req.body);
     const savedCompany = await company.save();
@@ -14,20 +15,57 @@ const postCompany = async (req, res) => {
   }
 };
 
-const getCompany = async (req, res) => {
-  //get company  code goes here
+const getCompany = async (req, res, next) => {
+  try {
+    console.log(req.params);
+    const company = await Company.findOne({ _id: req.params });
+    if (!company)
+      throw createError.Conflict(`${req.params._id} is unavailable`);
+    res.send({ company });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const getAllCompanies = async (req, res) => {
-  //get all companies code here
+  try {
+    console.log(req.params);
+    const company = await Company.find();
+    if (!company)
+      throw createError.Conflict(`${req.params._id} is unavailable`);
+    res.send({ company });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const deleteCompany = async (req, res) => {
-  //delete company code goes here
+  try {
+    console.log(req.params);
+    const company = await Company.findOneAndDelete({ _id: req.params });
+    if (!company)
+      throw createError.Conflict(`${req.params._id} is unavailable`);
+    res.send({ company });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const updateCompany = async (req, res) => {
-  //update company code goes here
+  //this code needs to be reviewed
+  try {
+    console.log(req.params);
+    const company = await Company.findOneAndUpdate(
+      { _id: req.params },
+      req.body,
+      { new: true }
+    );
+    if (!company)
+      throw createError.Conflict(`${req.params._id} is unavailable`);
+    res.send({ company });
+  } catch (error) {
+    next(error);
+  }
 };
 
 module.exports = {

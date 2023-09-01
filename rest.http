@@ -1,5 +1,5 @@
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTMwMTgxNTAsImV4cCI6MTY5MzAxODQ1MCwiYXVkIjoiNjRlN2FiNzQ1MzJjYTNiOTJlNjA5NzY2IiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.oTgarqyuqv4Epjt1FL8kMHMglMErOX4Dua8xa889dFc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTMyMzg3MjEsImV4cCI6MTY5MzIzOTAyMSwiYXVkIjoiNjRlN2FiNzQ1MzJjYTNiOTJlNjA5NzY2IiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.5UdbJSKskxwTimhuBRTZED98fa0wIr0IoZ4-vesIpzE
 
 ###
 POST https://jobs.learnerabdul.com/api/v1/ HTTP/1.1
@@ -7,6 +7,7 @@ POST https://jobs.learnerabdul.com/api/v1/ HTTP/1.1
 {
   "companyname":"gradstem" ,
   "jobtitle":"software dev",
+  "jobDescription":"this is a software development job",
   "jobid": "1234"
 }
 
@@ -20,13 +21,61 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email":"rizwanew@gmail.com",
+    "password":"12345"
+}
+
+###
 POST http://localhost:3000/api/v0/companies
 Content-Type: application/json
 
 {
-    "companyName":"gradstem",
-    "h1b":0
+    "companyName":"stemgrad",
+    "h1b":1
 }
+
+###
+POST http://localhost:3000/api/v0/jobs HTTP/1.1
+Content-Type: application/json
+
+
+{
+  "companyname":"gradstem" ,
+  "company":"64eabd81dd9be18e5906eb28",
+  "jobTitle":"Test engineer",
+  "jobDescription":"this is a AI Engineer job",
+  "jobid": "1234",
+  "openaiEmbeddings":"some job",
+    "domain":"test engineer "
+}
+
+
+###
+GET http://localhost:3000/api/v0/similarity
+Content-Type: application/json
+
+{
+    "text":"java job"
+}
+
+###
+GET http://localhost:3000/api/v0/jobs HTTP/1.1
+Content-Type: application/json
+
+
+###
+DELETE  http://localhost:3000/api/v0/jobs/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "id":"64ee1ade8a753b52332564e4"
+}
+
+
 
 ###
 POST http://localhost:3000/auth/login

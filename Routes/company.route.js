@@ -12,7 +12,7 @@ const {
 
 router.route("/companies").get(getAllCompanies).post(postCompany);
 router
-  .route("./company/:id")
+  .route("/companies/:_id")
   .get(getCompany)
   .delete(deleteCompany)
   .patch(updateCompany);
