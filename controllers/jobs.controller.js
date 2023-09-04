@@ -2,79 +2,125 @@ const express = require("express");
 const createError = require("http-errors");
 const Jobs = require("../Models/Jobs.model");
 const { jobsSchema } = require("../helpers/validation_schema");
-const Company = require("../Models/company.model");
-
-require("dotenv").config();
-const axios = require("axios");
-const client = axios.create({
-  headers: {
-    Authorization: "Bearer " + process.env.OPENAI_API_KEY,
-  },
-});
-const postJob = async (req, res) => {
-  const url = "https://api.openai.com/v1/embeddings";
-  const params = {
-    input: req.body.jobDescription,
-    model: "text-embedding-ada-002",
-  };
-  client.post(url, params).then((result) => {
-    req.body.openaiEmbeddings = result.data.data[0].embedding;
-    console.log(result.data.data[0].embedding);
-  });
-
+/**
+ * Create and save a new job.
+ * status - Done
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @returns {void}
+ */
+const postJob = async (req, res, next) => {
   try {
-    const job = new Jobs(req.body);
+    const result = await jobsSchema.validateAsync(req.body);
+
+    if (!result) throw createError.Conflict(`Data Validation failed`);
+    // Create a new job instance using the request body
+    const job = new Jobs(result);
+
+    // Save the job to the database
     const savedJob = await job.save();
+
+    // Send the saved job as a response
     res.send({ savedJob });
   } catch (error) {
-    console.log(error);
+    if (error.isJoi == true)
+      return next(createError.BadRequest("validation failed"));
+    next(error);
   }
 };
 
-const getJob = async (req, res) => {
+/**
+ * Get a job by its ID.
+ *status- Done
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @param {function} next - The next middleware function for error handling.
+ * @returns {void}
+ */
+const getJob = async (req, res, next) => {
   try {
-    console.log(req.params);
+    // Find a job by its ID, excluding the 'openaiEmbeddings' field, and populate the 'company' field
     const job = await Jobs.findOne(
       { _id: req.params },
       { openaiEmbeddings: 0 }
     ).populate("company");
-    if (!job) throw createError.Conflict(`${req.params._id} is unavailable`);
+
+    // If the job is not found, throw a conflict error
+    if (!job)
+      throw createError.Conflict(
+        `Job with _id: ${req.params._id} is unavailable`
+      );
+
+    // Send the job as a response
     res.send({ job });
   } catch (error) {
+    // Pass the error to the next middleware for centralized error handling
     next(error);
   }
 };
 
-const getAllJobs = async (req, res) => {
-  //code here
-  queryObject = {};
+/**
+ * Get all jobs.
+ *status - add filters
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @param {function} next - The next middleware function for error handling.
+ * @returns {void}
+ */
+const getAllJobs = async (req, res, next) => {
   try {
+    // Find all jobs, excluding the 'openaiEmbeddings' field, and populate the 'company' field
     let result = await Jobs.find({}, { openaiEmbeddings: 0 }).populate(
       "company"
     );
 
-    //res.send({ result });
+    // Send the results as a response
     res.send({ result });
   } catch (error) {
-    console.log(error);
+    // Handle errors gracefully and log them
+    console.error(error);
+    res.status(500).send({ error: "Internal Server Error" });
   }
 };
 
+/**
+ * Delete a job by its ID.
+ *status - Done
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @param {function} next - The next middleware function for error handling.
+ * @returns {void}
+ */
 const deleteJob = async (req, res, next) => {
   try {
-    console.log(req.params);
+    // Find and delete a job by its ID
     const job = await Jobs.findOneAndDelete({ _id: req.params });
-    if (!job) throw createError.Conflict(`${req.params._id} is unavailable`);
+
+    // If the job is not found, throw a conflict error
+    if (!job)
+      throw createError.Conflict(
+        `Job with _id: ${req.params._id} is unavailable`
+      );
+
+    // Send the deleted job as a response
     res.send({ job });
   } catch (error) {
+    // Pass the error to the next middleware for centralized error handling
     next(error);
   }
 };
 
-const updateJob = async (req, res) => {
-  ///code needs to be changed
+/**
+ * Update a job by its ID.
+ *status - Done
+ * @param {object} req - The request object.
+ * @param {object} res - The response object.
+ * @param {function} next - The next middleware function for error handling.
+ * @returns {void}
+ */
+const updateJob = async (req, res, next) => {
   try {
-    console.log(req.params);
+    // Find and update a job by its ID, excluding the 'openaiEmbeddings' field, and populate the 'company' field
     const job = await Jobs.findOneAndUpdate(
       { _id: req.params },
       req.body,
@@ -83,9 +129,17 @@ const updateJob = async (req, res) => {
       },
       { openaiEmbeddings: 0 }
     ).populate("company");
-    if (!job) throw createError.Conflict(`${req.params._id} is unavailable`);
+
+    // If the job is not found, throw a conflict error
+    if (!job)
+      throw createError.Conflict(
+        `Job with _id: ${req.params._id} is unavailable`
+      );
+
+    // Send the updated job as a response
     res.send({ job });
   } catch (error) {
+    // Pass the error to the next middleware for centralized error handling
     next(error);
   }
 };

@@ -7,7 +7,7 @@ module.exports = {
       const payload = {};
       const secret = process.env.ACCESS_TOKEN_SECRET;
       const options = {
-        expiresIn: "5m",
+        expiresIn: "30d",
         issuer: "gradstem.com",
         audience: userID,
       };
