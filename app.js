@@ -17,7 +17,7 @@ const { verifyAccessToken } = require("./helpers/jwt_helper");
 
 app.get("/", async (req, res, next) => {
   console.log(req.headers["authorization"]);
-  res.send("status : Active , Hello from gradjobs");
+  res.send("status : Active , Hello from gradstem server");
 });
 
 app.use("/auth", AuthRoute);
