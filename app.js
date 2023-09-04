@@ -21,7 +21,7 @@ app.get("/", verifyAccessToken, async (req, res, next) => {
 });
 
 app.use("/auth", AuthRoute);
-app.use("/api/v0/", jobs, companies, similarity);
+app.use("/api/v0/", verifyAccessToken, jobs, companies, similarity);
 
 app.use(async (req, res, next) => {
   next(createError.NotFound());

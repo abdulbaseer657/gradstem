@@ -5,10 +5,16 @@ const authSchema = Joi.object({
   password: Joi.string().min(2).required(),
 });
 const jobsSchema = Joi.object({
-  //need to write validation
+  jobTitle: Joi.string().required(),
+  jobDescription: Joi.string().required(),
+  applyLink: Joi.string().required(),
+  domain: Joi.string(),
+  company: Joi.string().required(),
+  jobid: Joi.string(),
 });
 const companiesSchema = Joi.object({
-  //need to write validation
+  companyName: Joi.string().required(),
+  h1b: Joi.number().required(),
 });
 
 module.exports = {

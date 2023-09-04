@@ -1,14 +1,12 @@
 GET http://localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTMyMzg3MjEsImV4cCI6MTY5MzIzOTAyMSwiYXVkIjoiNjRlN2FiNzQ1MzJjYTNiOTJlNjA5NzY2IiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.5UdbJSKskxwTimhuBRTZED98fa0wIr0IoZ4-vesIpzE
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
 ###
-POST https://jobs.learnerabdul.com/api/v1/ HTTP/1.1
+GET http://localhost:3000/api/v0/similarity
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
+Content-Type: application/json
 
 {
-  "companyname":"gradstem" ,
-  "jobtitle":"software dev",
-  "jobDescription":"this is a software development job",
-  "jobid": "1234"
+    "text":" development"
 }
 
 ###
@@ -40,17 +38,16 @@ Content-Type: application/json
 
 ###
 POST http://localhost:3000/api/v0/jobs HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
 Content-Type: application/json
 
-
 {
-  "companyname":"gradstem" ,
   "company":"64eabd81dd9be18e5906eb28",
-  "jobTitle":"Test engineer",
-  "jobDescription":"this is a AI Engineer job",
+  "jobTitle":"xyz",
+  "jobDescription":"this is a software Engineer job",
   "jobid": "1234",
-  "openaiEmbeddings":"some job",
-    "domain":"test engineer "
+  "applyLink":"jobs.google.com",
+  "domain":"xyz "
 }
 
 
@@ -59,22 +56,35 @@ GET http://localhost:3000/api/v0/similarity
 Content-Type: application/json
 
 {
-    "text":"java job"
+    "text":"software development"
 }
 
 ###
-GET http://localhost:3000/api/v0/jobs HTTP/1.1
+GET http://localhost:3000/api/v0/jobs/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
 Content-Type: application/json
 
 
 ###
-DELETE  http://localhost:3000/api/v0/jobs/ HTTP/1.1
+DELETE  http://localhost:3000/api/v0/jobs/64ee1b2a8a753b52332564e8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
+Content-Type: application/json
+
+
+
+###
+PATCH  http://localhost:3000/api/v0/jobs/64ee1b2a8a753b52332564e8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2OTM3ODM3MTYsImV4cCI6MTY5NjM3NTcxNiwiYXVkIjoiNjRlYTkwZTYwNzZjZmYxM2M2ZmM1YzdjIiwiaXNzIjoiZ3JhZHN0ZW0uY29tIn0.FHdEZ90rmVZDl2KeKqS17k4PwWZIV5CwGBqPDXnQF1A
 Content-Type: application/json
 
 {
-    "id":"64ee1ade8a753b52332564e4"
+  "company":"64eabd81dd9be18e5906eb28",
+  "jobTitle":" new full stack engineer",
+  "jobDescription":"this is a software Engineer job",
+  "jobid": "1234",
+  "openaiEmbeddings":"some job",
+  "domain":" engineer "
 }
-
 
 
 ###
@@ -88,7 +98,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:3000/auth/refresh-token
+POST http://localhost:3000/auth/refresh_token
 Content-Type: application/json
 
 {

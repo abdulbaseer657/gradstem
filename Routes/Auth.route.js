@@ -12,7 +12,7 @@ router.post("/register", authRegister);
 
 router.post("/login", authLogin);
 
-router.post("/refresh-token", authRefreshToken);
+router.post("/refresh_token", authRefreshToken);
 
 router.delete("/logout", async (req, res, next) => {});
 

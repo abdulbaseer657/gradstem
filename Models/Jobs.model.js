@@ -13,6 +13,7 @@ const jobSchema = new Schema({
   },
   jobDescription: {
     type: String,
+    required: [true, "job title must be provided"],
   },
   jobId: {
     type: String,
@@ -24,24 +25,21 @@ const jobSchema = new Schema({
   domain: {
     type: String,
   },
-  internship: {
-    type: Boolean,
-  },
   openaiEmbeddings: {
     type: Array,
-    default: "",
+    default: "[]",
   },
   // enum: ['ikea', 'liddy', 'caressa', 'marcos'],
   applyLink: {
     type: String,
+    required: [true, "job title must be provided"],
   },
 });
 
 //Generating OpenAi Embeddings for Job Description
 const client = axios.create({
   headers: {
-    Authorization:
-      "Bearer " + "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",
+    Authorization: "Bearer " + process.env.OPENAI_API_KEY,
   },
 });
 const url = "https://api.openai.com/v1/embeddings";
@@ -52,9 +50,10 @@ jobSchema.pre("save", async function (next) {
       input: `The Job Title for this job is : ${this.jobTitle}  The JOb Description is : ${this.jobDescription} This company is looking for skills in  ${this.domain}`,
       model: "text-embedding-ada-002",
     };
-    console.log(params.input);
+    console.log("input : ", params.input);
     const response = await client.post(url, params);
     const embed = response.data.data[0].embedding;
+    console.log("embed : ", embed);
     this.openaiEmbeddings = embed;
     next();
   } catch (error) {
