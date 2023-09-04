@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const { verifyAccessToken } = require("./helpers/jwt_helper");
 
-app.get("/status", verifyAccessToken, async (req, res, next) => {
+app.get("/", async (req, res, next) => {
   console.log(req.headers["authorization"]);
   res.send("status : Active , Hello from gradjobs");
 });
