@@ -2,14 +2,16 @@
 
 <div align="center">
 
-![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)
-![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&gitlogo=react&logoColor=%2361DAFB)
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Node JS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Express JS](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![OpenAI](https://img.shields.io/badge/chatGPT-74aa9c?logo=openai&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-F6BB43?style=flat-square&logo=Postman&logoColor=white)
 
 </div>
 
 <h2 align="center">Helping 100K+ international students secure sponsoring jobs !</h2>
+<h2 align="center">API Documentation : http://developer.gradstem.com </h2>
 
 <p align="center">
   <a href="https://gradstem.com" target="_blank"> 
@@ -19,48 +21,40 @@
 
 ### Gradstem is a Resource Hub aggrigating and maintaing H1b sponsoring jobs for fresh graduates .
 
--features yet to come....
+-This Application is being build specifically for New Grad International students ,we manually verify each job for 2 criterias
+1.Does the job posting hire/sponsor International students
+2.Does the job posting hire new grads (0-1 yr exp)
+
+The Jobs are scrapped on daily basis from Linkedin , Indeed , Glassdoor and 2000+ company career pages known for hiring International students
+The Gradstem Public API is a REST API that lets you manage all of your Gradstem services and resources through simple HTTP requests. With this API, you can have the power of OpenAI embeddings , Semantic Resume similarity search(AI Based) , allowing you to integrate seamlessly with Gradstem
+Currently, the API supports endpoints that allow for Auth (access Token and Referesh Token),
+Companies,Jobs,Similarity(Resume Similarity)
+I'll be gradually releasing more endpoints in the coming months, allowing you to find internships , Generate Customised Coverletters and Resumes based on existing resume and job description.
+upcomming in V0:
+Pagination
+Searching
 
 ## Tech. stack
 
-### Front-end stack - Change
-
-- [Next.js](https://nextjs.org/)
-- [React.js](https://reactjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Typescript](https://www.typescriptlang.org/)
-
-### Back-end stack - Change
-
-- [Next.js](https://nextjs.org/) : API endpoints and serverside rendering
-- [Google Identity Services SDK](https://developers.google.com/identity/protocols/oauth2) : Google authentication with React
-- [Zustand](https://github.com/pmndrs/zustand) : State management
-- [Sanity](https://www.sanity.io/docs) : Datastore / Headless CMS
+- [Node.js](https://nodejs.org/)
+- [Express.js](https://expressjs.com)
+- [MongoDB](https://mongodb.com/)
+- [OpenAI](https://www.openai.com/)
+- [Postman](https://www.postman.com)
 
 ## Installing locally
 
-### Setting up Sanity datastore - Change to MongoDB
+### Setting up MongoDB
 
-- Create a <i>Sanity project</i> with schema provided in `./cacta-backend`
-- Check out [Sanity documentation](https://www.sanity.io/docs) for a step by step guide
-- Once you have your Sanity datastore ready, fill in your env. varilables and proceed with the next steps
+- Create a <i>MongoDB Atlas</i> account, it is a self hosted MongoDB Instance
+- Check out [MongoDB Atlas](https://www.mongodb.com/atlas/database) for a step by step guide
+- Once you have MongoDb Atlas ready, fill in your env. varilables and proceed with the next steps
+- Follow the detailed instructions [here](https://www.mongodb.com/developer/products/atlas/semantic-search-mongodb-atlas-vector-search/) to set the semantic/vector search
 
-### Obtaining Google OAuth 2.0 client credentials
+### Obtaining OpenAI credentials
 
-- Create a new project on [Google API Console](https://console.developers.google.com/) to get OAuth 2.0 client credentials
-- Following the detailed instructions [here](https://developers.google.com/identity/protocols/oauth2) to get the crendentials
-
-### Setting up dev. environment variables
-
-- Create a new file `.env.development` under `./` and fill the following three variables
-
-```sh
-NEXT_PUBLIC_SANITY_TOKEN = < YOUR SANITY PUBLIC TOKEN >
-
-NEXT_PUBLIC_GOOGLE_API_TOKEN = < YOUR GOOGLE AUTH PUBLIC TOKEN >
-
-NEXT_PUBLIC_BASE_URL = http://localhost:3000
-```
+- Create an account on [OpenAI Platform](https://platform.openai.com/) to get API credentials
+- Following the detailed instructions [here](https://platform.openai.com/docs/api-reference/introduction) to get the crendentials
 
 ### Installing dependencies
 
@@ -79,28 +73,32 @@ pnpm install
 - After you have installed dependencies, use the following command in your terminal from `./` to start the dev. server
 
 ```sh
-npm run dev
+npm start
 < or >
-yarn dev
+yarn start
 < or >
-pnpm dev
+pnpm start
 ```
 
 - Visit `http://localhost:3000` to view Gradstem on your local machine
 
-## Build & Deploy
-
 ### Environment variables
 
 - Update the evniornment variables on your hosting platform before building
-- `NEXT_PUBLIC_BASE_URL` can be left empty initially and can be updated once the app is hosted
 
 ```sh
-NEXT_PUBLIC_SANITY_TOKEN = < YOUR SANITY PUBLIC TOKEN >
+PORT = < 3000 >
 
-NEXT_PUBLIC_GOOGLE_API_TOKEN = < YOUR GOOGLE AUTH PUBLIC TOKEN >
+MONGODB_URI = < YOUR Credentials >
 
-NEXT_PUBLIC_BASE_URL = < Hosted URL >
+DB_NAME = < YOUR Credentials >
+
+ACCESS_TOKEN_SECRET = < YOUR Credentials >
+
+REFRESH_TOKEN_SECRET = < YOUR Credentials >
+
+OPENAI_API_KEY = < YOUR Credentials >
+
 ```
 
 ### Build command
