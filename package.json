@@ -28,5 +28,8 @@
     "nodemon": "^3.0.1",
     "openai": "^4.3.0",
     "vector-cosine-similarity": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0"
   }
 }

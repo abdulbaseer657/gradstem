@@ -1,3 +1,4 @@
+// Import required libraries and modules
 const express = require("express");
 const morgan = require("morgan");
 const createError = require("http-errors");
@@ -7,26 +8,38 @@ const AuthRoute = require("./Routes/Auth.route");
 const jobs = require("./Routes/jobs.route");
 const similarity = require("./Routes/similarity.route");
 const companies = require("./Routes/company.route");
+// Import JWT helper for token verification
+const { verifyAccessToken } = require("./helpers/jwt_helper");
+// Create an Express application
 const app = express();
+
+// Enable CORS for cross-origin requests
 const cors = require("cors");
 app.use(cors());
+
+// Set up request logging using Morgan
 app.use(morgan("dev"));
+
+// Parse JSON and URL-encoded data
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-const { verifyAccessToken } = require("./helpers/jwt_helper");
 
+// Define a route for the root endpoint
 app.get("/", async (req, res, next) => {
   console.log(req.headers["authorization"]);
-  res.send("status : Active , Hello from gradstem server");
+  res.send("status: Active, Hello from gradstem server");
 });
 
+// Define routes for authentication and protected API endpoints
 app.use("/auth", AuthRoute);
 app.use("/api/v0/", verifyAccessToken, jobs, companies, similarity);
 
+// Handle 404 Not Found errors
 app.use(async (req, res, next) => {
   next(createError.NotFound());
 });
 
+// Handle errors and send appropriate responses
 app.use(async (err, req, res, next) => {
   res.status(err.status || 500);
   res.send({
@@ -37,8 +50,10 @@ app.use(async (err, req, res, next) => {
   });
 });
 
+// Define the port for the server to listen on
 const PORT = process.env.PORT || 3000;
 
+// Start the Express server
 app.listen(PORT, () => {
-  console.log(`server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
