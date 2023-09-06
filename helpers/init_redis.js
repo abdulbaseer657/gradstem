@@ -1,6 +1,6 @@
 const redis = require("ioredis");
 const client = redis.createClient({
-  url: "rediss://red-cjjohb7jbvhs73ao1a1g:rSe4d5Bhavc7fGdq9XXIteSR4YMgqFqi@oregon-redis.render.com:6379",
+  url: process.env.REDIS_URL,
 });
 
 client.on("connect", () => {
