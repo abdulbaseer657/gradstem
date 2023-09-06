@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const createError = require("http-errors");
+const client = require("./init_redis");
 
 module.exports = {
   signAccessToken: (userID) => {
@@ -18,7 +19,14 @@ module.exports = {
           return reject(createError.InternalServerError());
         }
 
-        resolve(token);
+        client.set(userID, token, "EX", 365 * 24 * 60 * 60, (err, reply) => {
+          if (err) {
+            console.log(err.message);
+            reject(createError.InternalServerError("Redis Error"));
+            return;
+          }
+          resolve(token);
+        });
       });
     });
   },
@@ -65,6 +73,15 @@ module.exports = {
         (err, payload) => {
           if (err) return reject(createError.Unauthorized());
           const userId = payload.aud;
+          client.get(userId, (err, result) => {
+            if (err) {
+              console.log(err.message);
+              reject(createError.InternalServerError("Redis Error"));
+              return;
+            }
+            if (refreshToken === result) return resolve(userId);
+            reject(createError.Unauthorized());
+          });
 
           resolve(userId);
         }

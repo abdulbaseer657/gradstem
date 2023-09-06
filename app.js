@@ -8,6 +8,7 @@ const AuthRoute = require("./Routes/Auth.route");
 const jobs = require("./Routes/jobs.route");
 const similarity = require("./Routes/similarity.route");
 const companies = require("./Routes/company.route");
+const client = require("./helpers/init_redis");
 // Import JWT helper for token verification
 const { verifyAccessToken } = require("./helpers/jwt_helper");
 // Create an Express application
@@ -16,6 +17,7 @@ const app = express();
 // Enable CORS for cross-origin requests
 const cors = require("cors");
 app.use(cors());
+//
 
 // Set up request logging using Morgan
 app.use(morgan("dev"));

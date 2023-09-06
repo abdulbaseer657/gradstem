@@ -8,6 +8,7 @@ const {
   verifyRefreshToken,
   signRefreshToken,
 } = require("../helpers/jwt_helper");
+const client = require("../helpers/init_redis");
 require("cors");
 const authRegister = async (req, res, next) => {
   console.log(req.body);
@@ -62,8 +63,27 @@ const authRefreshToken = async (req, res, next) => {
     next(error);
   }
 };
+
+const authLogout = async (req, res, next) => {
+  try {
+    const { refreshToken } = req.body;
+    if (!refreshToken) throw createError.BadRequest();
+    const userID = await verifyRefreshToken(refreshToken);
+    client.del(userID, (err, val) => {
+      if (err) {
+        console.log(err.message);
+        throw createError.InternalServerError();
+      }
+      console.log(val);
+      res.sendStatus(204);
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   authRegister,
   authLogin,
   authRefreshToken,
+  authLogout,
 };
