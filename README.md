@@ -10,7 +10,7 @@
 
 </div>
 
-<h2 align="center">Helping 100K+ international students secure sponsoring jobs !</h2>
+<h2 align="center">Helping 100K+ international students secure sponsoring jobs!</h2>
 <h2 align="center">API Documentation : http://developer.gradstem.com </h2>
 
 <p align="center">
